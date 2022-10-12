@@ -14,16 +14,29 @@ import os
 from pathlib import Path
 from tkinter import *
 from tkinter.filedialog import *
+import plotly.express as px
 
-"""
-def heatmap(file):
+import plotly.graph_objects as go
+
+def heatmap():
     try:
         os.mkdir("HEATOMAP")
     except OSError as error:
         print(error)
-    df = 
-    
-"""
+    df = pd.read_csv(path_to_data.get() , sep =";")
+    print(df)
+    feature_name = []
+    for i in df:
+        feature_name.append(i)
+    val_list = []
+    for j in df[target_data.get()]:
+        val_list.append(j)
+    print(len(feature_name) , len(val_list))
+    fig = px.imshow(df, labels=dict(x="ID", y="Protein", color='FoldChange'), y = val_list,
+                    x=feature_name, width=700, height=2800)
+    fig.update_xaxes(side='top')
+    fig.write_html("heatmap.html")
+
 def get_data_frame():
     filename = askopenfilename(title="Find text file", filetypes=[('txt files', '.txt'), ('all files', '.*')])
     path_to_data.set(filename)
@@ -64,14 +77,17 @@ value = StringVar()
 value.set("Number of condition")
 entree = Entry(fenetre, textvariable=value, width=30)
 entree.pack()
+
 GO = Button(fenetre , text = "Gene ontology" , command = fenetre.quit)
 de = Button(fenetre , text= "Differential Expression" , command = fenetre.quit )
-heatomap = Button(fenetre, text = "Heatmap" , command = fenetre.quit)
+heatomap = Button(fenetre, text = "Heatmap" , command = heatmap)
+volcoco = Button(fenetre, text ="Volcano" , command = fenetre.quit)
 exit=Button(fenetre, text="Fermer", command=fenetre.quit)
 
 GO.pack()
 de.pack()
 heatomap.pack()
+volcoco.pack()
 exit.pack()
 fenetre.mainloop()
 
