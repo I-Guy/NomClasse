@@ -15,7 +15,7 @@ from pathlib import Path
 from tkinter import *
 from tkinter.filedialog import *
 import plotly.express as px
-
+import dash_bio
 import plotly.graph_objects as go
 
 def heatmap():
@@ -37,6 +37,33 @@ def heatmap():
     fig.update_xaxes(side='top')
     fig.write_html("heatmap.html")
 
+"""
+def volcanoPlot():
+    df = pd.read_csv(path_to_data.get(), sep=";")
+    fig = go.Figure()
+    features = []
+    for i in df:
+        features.append(i)
+    trace1 = go.Scatter(
+    x=df2['log2_asp'],
+    y=df2['logpval_asp'],
+    mode='markers',
+    name='asp',
+    hovertext=list(df2['prot_asp'])
+    )
+    trace2 = go.Scatter(
+    x=df3['log2_pseudo'],
+    y=df3['logpval_pseudo'],
+    mode='markers',
+    name='pseudo',
+    hovertext=list(df3['prot_pseudo'])
+    )
+"""
+"""
+def make_fc():
+    df = pd.read_csv(path_to_data.get() ,sep =";")
+    for i in
+"""
 def get_data_frame():
     filename = askopenfilename(title="Find text file", filetypes=[('txt files', '.txt'), ('all files', '.*')])
     path_to_data.set(filename)
@@ -78,12 +105,16 @@ value.set("Number of condition")
 entree = Entry(fenetre, textvariable=value, width=30)
 entree.pack()
 
+
+
+calc = Button(fenetre, text = "Calculate Fold Change" , command = fenetre.quit)
 GO = Button(fenetre , text = "Gene ontology" , command = fenetre.quit)
 de = Button(fenetre , text= "Differential Expression" , command = fenetre.quit )
 heatomap = Button(fenetre, text = "Heatmap" , command = heatmap)
 volcoco = Button(fenetre, text ="Volcano" , command = fenetre.quit)
 exit=Button(fenetre, text="Fermer", command=fenetre.quit)
 
+calc.pack()
 GO.pack()
 de.pack()
 heatomap.pack()
