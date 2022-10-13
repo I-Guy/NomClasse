@@ -7,6 +7,7 @@ __doc__ = "Window for proteomic analysis"
 """
 Library
 """
+
 import pandas as pd
 import argparse
 import re
@@ -64,6 +65,13 @@ def make_fc():
     df = pd.read_csv(path_to_data.get() ,sep =";")
     for i in
 """
+"""
+def diff_prot():
+    deseq2.py_DESeq2(count_matrix, design_matrix, design_formula, gene_column='id')
+"""
+
+def run_de():
+    os.system("python3 differential_expression.py")
 def get_data_frame():
     filename = askopenfilename(title="Find text file", filetypes=[('txt files', '.txt'), ('all files', '.*')])
     path_to_data.set(filename)
@@ -109,7 +117,7 @@ entree.pack()
 
 calc = Button(fenetre, text = "Calculate Fold Change" , command = fenetre.quit)
 GO = Button(fenetre , text = "Gene ontology" , command = fenetre.quit)
-de = Button(fenetre , text= "Differential Expression" , command = fenetre.quit )
+de = Button(fenetre , text= "Differential Expression" , command = run_de)
 heatomap = Button(fenetre, text = "Heatmap" , command = heatmap)
 volcoco = Button(fenetre, text ="Volcano" , command = fenetre.quit)
 exit=Button(fenetre, text="Fermer", command=fenetre.quit)
