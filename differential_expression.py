@@ -15,10 +15,31 @@ from tkinter.filedialog import *
 import plotly.express as px
 import dash_bio
 import plotly.graph_objects as go
+from scipy.stats import ttest_ind
+
+def rundesq2(design , count):
+    list_name = []
+    df = pd.read_csv(count, sep=";")
+
+    for i in df:
+        list_name.append(i)
+    df2 = pd.DataFrame(index=list_name)
+    df3 = np.log2(df)
 
 
-def rundesq2():
     deseq2.py_DESeq2(path_to_data.get() , path_to_design.get() ,design_formula.get(), gene_column=__id__.get() )
+    with open(design ,"r") as desig:
+        for line in desig:
+            sline = line.strip().split("-")
+
+            df2[sline[0]] = df.loc[df['cdt'] == sline[0], ].mean()
+            df2[sline[1]] = df.loc[df["cdt"] == sline[1] , ].mean()
+            df2['{sline[0]}_vs_{sline[1]}'] = np.log2(df[sline[0]]/df[sline[1]])
+            df2['pval of {sline[0]}_vs_{sline[1]}'] = ttest_ind(df3.loc[df['cdt'] == sline[0], ],df3.loc[df["cdt"] == sline[1]])
+            df2.to_csv("DE.csv")
+
+
+
 
 def get_data_frame():
     filename = askopenfilename(title="Find text file", filetypes=[('txt files', '.txt'),('csv files' ,'.csv') ,('tsv files','.tsv'), ('all files', '.*')])
