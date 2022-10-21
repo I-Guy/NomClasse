@@ -6,7 +6,7 @@ __doc__ = "Window for proteomic analysis"
 
 #import deseq2
 import pandas as pd
-import deseq2
+
 import re
 import os
 from pathlib import Path
@@ -16,34 +16,47 @@ import plotly.express as px
 import dash_bio
 import plotly.graph_objects as go
 from scipy.stats import ttest_ind
+import numpy as np
 
-def rundesq2(design , count):
+def rundesq2():
     list_name = []
-    df = pd.read_csv(count, sep=";")
-
+    df = pd.read_csv(path_to_data.get(), sep=",")
+    df.index = df["Unnamed: 0"]
+    df3 = df.drop(['Unnamed: 0' ,"Condition"], axis=1)
+    print(df)
     for i in df:
         list_name.append(i)
+    print(list_name)
     df2 = pd.DataFrame(index=list_name)
-    df3 = np.log2(df)
+    print(df3)
 
 
-    deseq2.py_DESeq2(path_to_data.get() , path_to_design.get() ,design_formula.get(), gene_column=__id__.get() )
-    with open(design ,"r") as desig:
+    with open(path_to_design.get() ,"r") as desig:
         for line in desig:
             sline = line.strip().split("-")
 
-            df2[sline[0]] = df.loc[df['cdt'] == sline[0], ].mean()
-            df2[sline[1]] = df.loc[df["cdt"] == sline[1] , ].mean()
-            df2['{sline[0]}_vs_{sline[1]}'] = np.log2(df[sline[0]]/df[sline[1]])
-            df2['pval of {sline[0]}_vs_{sline[1]}'] = ttest_ind(df3.loc[df['cdt'] == sline[0], ],df3.loc[df["cdt"] == sline[1]])
-            df2.to_csv("DE.csv")
+            df2[sline[0]] = df.loc[df['Condition'] == sline[0], ].mean()
+            df2[sline[1]] = df.loc[df["Condition"] == sline[1] , ].mean()
+            try:
+                df2['{sline[0]}_vs_{sline[1]}'] = np.log2(df.loc[df['Condition'] == sline[0], 2:10]/df.loc[df["Condition"] == sline[1] , ])
+            except TypeError:
+                print('caca')
+            print(df.loc[df['Condition'] == sline[0], ])
+            df2['pval of {sline[0]}_vs_{sline[1]}'] = ttest_ind(df.loc[df['Condition'] == sline[0], ],df.loc[df["Condition"] == sline[1] , ])
 
+
+    print(df2)
+    df2.to_csv("~/PycharmProjects/NomClasse/DE.csv",  sep='\t')
+    df3.to_csv("Log2_normalize.csv",  sep='\t')
 
 
 
 def get_data_frame():
     filename = askopenfilename(title="Find text file", filetypes=[('txt files', '.txt'),('csv files' ,'.csv') ,('tsv files','.tsv'), ('all files', '.*')])
     path_to_data.set(filename)
+def get_data_frame2():
+    filename = askopenfilename(title="Find text file", filetypes=[('txt files', '.txt'),('csv files' ,'.csv') ,('tsv files','.tsv'), ('all files', '.*')])
+    path_to_design.set(filename)
 fenetre = Tk()
 
 window_label = Label(fenetre, text="Differential expression analysis")
@@ -80,7 +93,7 @@ path_to_design = StringVar()
 path_to_design.set("Path_to_the_D")
 path_tt = Entry(Frame_design, textvariable=path_to_design, width=30)
 path_tt.pack()
-path_button_design = Button(Frame_design , text = 'Get design matrix' , command = get_data_frame)
+path_button_design = Button(Frame_design , text = 'Get design matrix' , command = get_data_frame2)
 path_button_design.pack()
 
 #In Frame_formula
