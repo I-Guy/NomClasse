@@ -25,16 +25,16 @@ This tools can only be used with a GUI
 ------------------------------------------------
 Prerequisite
 ------------------------------------------------
-python 3.7
-tkinter
-numpy
-diffexpr
-goatools
-mygene
-plotly
-sklearn
-pandas
-rpy
+- python 3.7
+- tkinter
+- numpy
+- diffexpr
+- goatools
+- mygene
+- plotly
+- sklearn
+- pandas
+- rpy2
 
 
 
