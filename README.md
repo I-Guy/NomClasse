@@ -38,5 +38,16 @@ Prerequisite
 - pandas
 - rpy2
 
+-------------------------------------------------
+How to use
+-------------------------------------------------
+
+You have to load your count matrix with sample as column and gene as rows. You have to precise all replicate (ex  : A_1,A_2,A_3,B_1,B_2,B_3)
+Then you can just click on the DE button, this will create automatically your design matrix. And output a DE.csv containing fold change and pvalue. 
+The DE button use diffexpr which is a python implementation of DesEQ2. 
+
+Volcano : You have to load count matrix and design matrix , then just click on volcano plot.
+
+
 
 
