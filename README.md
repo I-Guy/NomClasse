@@ -46,8 +46,7 @@ You have to load your count matrix with sample as column and gene as rows. You h
 Then you can just click on the DE button, this will create automatically your design matrix. And output a DE.csv containing fold change and pvalue. 
 The DE button use diffexpr which is a python implementation of DesEQ2. 
 
-Volcano : You have to load count matrix and design matrix , then just click on volcano plot.
+Volcano , PCA (2d , 3d ) : You have to load count matrix and design matrix , then just click on the button.
 
-
-
+Heatmap , Gene ontology : you have to load the count matrix then just click on the button
 
