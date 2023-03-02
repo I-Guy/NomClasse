@@ -120,12 +120,14 @@ def  Differential_Analysis():
  		count matrix. It also create the design matrix
 	"""
 	df = pd.read_table(path_to_data.get())
+	print(df.head())
 	sample_df = pd.DataFrame({'samplename': df.columns}) \
         .query('samplename != "id"')\
         .assign(sample = lambda d: d.samplename.str.extract('([AB])_', expand=False)) \
         .assign(replicate = lambda d: d.samplename.str.extract('_([123])', expand=False)) 
 	sample_df.index = sample_df.samplename
 	sample_df.to_csv("design.csv")
+	print(df.head())
 	dds = py_DESeq2(count_matrix = df,
                design_matrix = sample_df,
                design_formula = '~ replicate + sample',
@@ -134,10 +136,12 @@ def  Differential_Analysis():
 	dds.run_deseq() 
 	dds.get_deseq_result(contrast = ['sample','B','A'])
 	res = dds.deseq_result 
-	res.head()
+	print(res.head())
 	dds.normalized_count()
 	dds.comparison 
 	lfc_res = dds.lfcShrink(coef=4, method='apeglm')
+	print(lfc_res)
+	lfc_res["id"] = df["id"]
 	print(lfc_res)
 	lfc_res.to_csv("DE.csv")
 	
@@ -222,25 +226,42 @@ def goterm():
         alpha=0.05,  # default significance cut-off
         methods=['fdr_bh'])  # defult multipletest correction method
     
-	df = pd.read_csv("test.csv" , sep = ",")
-	xli = df['symbol'].to_list()
-	print(df['id'].to_list())
-	out = mg.querymany(xli, scopes='symbol', fields='entrezgene', species='mouse')
-	entrez_id = []
+	df = pd.read_csv(path_to_data.get() , sep = ",")
+	df_down  = df[df["log2FoldChange"] < 0 ] 
+	df_up = df[df["log2FoldChange"] > 0 ]
+	print(df_down.shape)
+	print(df_up.shape)
+	xli_up = df_up['id'].to_list()
+	xli_down = df_down['id'].to_list()
+	#print(df['id'].to_list())
+	out_up = mg.querymany(xli_up, scopes='symbol', fields='entrezgene', species='mouse')
+	out_down = mg.querymany(xli_down, scopes='symbol', fields='entrezgene', species='mouse')
+	entrez_id_up = []
+	entrez_id_down = []
 
-	for i in out:
+	for i in out_up:
 		#print(i)
 		try:
-			entrez_id.append(int(i["_id"]))
+			entrez_id_up.append(int(i["_id"]))
 		except (KeyError , ValueError) as error:
 			pass
-
-	geneids_study = entrez_id
+	for i in out_down:
+		#print(i)
+		try:
+			entrez_id_down.append(int(i["_id"]))
+		except (KeyError , ValueError) as error:
+			pass
 	
-	goea_results_all = goeaobj.run_study(geneids_study)
+	geneids_study_up = entrez_id_up
+	
+	goea_results_all = goeaobj.run_study(geneids_study_up)
 	goea_results_sig = [r for r in goea_results_all if r.p_fdr_bh < 0.05]
-	goeaobj.wr_xlsx("GO.xlsx", goea_results_sig)
-   
+	goeaobj.wr_xlsx("GO_up.xlsx", goea_results_sig)
+	geneids_study_down = entrez_id_down
+	
+	goea_results_all = goeaobj.run_study(geneids_study_down)
+	goea_results_sig = [r for r in goea_results_all if r.p_fdr_bh < 0.05]
+	goeaobj.wr_xlsx("GO_down.xlsx", goea_results_sig)
     
 
 def get_data_frame():
