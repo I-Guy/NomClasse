@@ -11,7 +11,7 @@ Credit : CEPR ILANGO G., CEPR CEZARD A.
 
 
 -----------------------------------------------
-Insert a cool name here
+# Insert a cool name here
 -----------------------------------------------
 
 NomClasse is made for all kind of analysis. It just need a formated table to process it. 
@@ -25,7 +25,7 @@ Features : - PCA (2d , 3d )
 This tools can only be used with a GUI
 
 ------------------------------------------------
-Prerequisite
+# Prerequisite
 ------------------------------------------------
 - python 3.7
 - tkinter
@@ -39,11 +39,13 @@ Prerequisite
 - rpy2
 
 -------------------------------------------------
-Installation
+# Installation
 -------------------------------------------------
-On linux : install all package with install_dep.bash
+## Linux 
+install all package with install_dep.bash
 
-On windows : Because diffexpr is not available on windows, you will need to use WSL2.
+## windows 
+Because diffexpr is not available on windows, you will need to use WSL2.
 You can install it using powershell and type following command : 
 ```
 # go into some folder into which you want the file to be downloaded
@@ -66,7 +68,7 @@ Then you have to install a linux conda with WSL2 : https://docs.conda.io/project
 Finally run install_dep.bash           
            
 -------------------------------------------------
-How to use
+# How to use
 -------------------------------------------------
 
 You have to load your count matrix with sample as column and gene as rows. You have to precise all replicate (ex  : A_1,A_2,A_3,B_1,B_2,B_3)
