@@ -45,7 +45,7 @@ On linux : install all package with install_dep.bash
 
 On windows : Because diffexpr is not available on windows, you will need to use WSL2.
 You can install it using powershell and type following command : 
-
+```
 # go into some folder into which you want the file to be downloaded
 - cd <somefolder>
 
@@ -54,7 +54,7 @@ You can install it using powershell and type following command :
 
 # install downloaded *.appx file
 - Add-AppxPackage .\Ubuntu.appx
- 
+```
 Then you have to install Xserver : https://sourceforge.net/projects/vcxsrv/
 In WSL2 type following command : 
 - export DISPLAY=$(ip route|awk '/^default/{print $3}'):0.0
