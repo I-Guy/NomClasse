@@ -39,6 +39,31 @@ Prerequisite
 - rpy2
 
 -------------------------------------------------
+Installation
+-------------------------------------------------
+On linux : install all package with install_dep.bash
+
+On windows : Because diffexpr is not available on windows, you will need to use WSL2.
+You can install it using powershell and type following command : 
+
+# go into some folder into which you want the file to be downloaded
+- cd <somefolder>
+
+# download Ubuntu 20.04
+- Invoke-WebRequest -Uri https://aka.ms/wslubuntu2004 -OutFile Ubuntu.appx -UseBasicParsing
+
+# install downloaded *.appx file
+- Add-AppxPackage .\Ubuntu.appx
+ 
+Then you have to install Xserver : https://sourceforge.net/projects/vcxsrv/
+In WSL2 type following command : 
+- export DISPLAY=$(ip route|awk '/^default/{print $3}'):0.0
+
+Then you have to install a linux conda with WSL2 : https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html
+
+Finally run install_dep.bash           
+           
+-------------------------------------------------
 How to use
 -------------------------------------------------
 
