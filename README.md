@@ -1,10 +1,12 @@
 Authors: ILANGO Guy 
 
+Maintainer : ILANGO Guy
+
 Version : 0.0.3  
 
 Draw : Cezard Adeline
 
-Affiliation: Research Center for Respiratory Diseases (France)
+Affiliation: Research Center for Respiratory Diseases ; Team 4  (France)
 
 Credit : CEPR ILANGO G., CEPR CEZARD A.
 
