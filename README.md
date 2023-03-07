@@ -11,10 +11,10 @@ Credit : CEPR ILANGO G., CEPR CEZARD A.
 
 
 -----------------------------------------------
-# Insert a cool name here
+# Analyse youR daTa Yourself (ARTY)
 -----------------------------------------------
 
-NomClasse is made for all kind of analysis. It just need a formated table to process it. 
+ARTY is made for all kind of analysis. It just need a formated table to process it. 
 
 Features : - PCA (2d , 3d ) 
            - Differential expression analysis (DE)
@@ -66,7 +66,12 @@ export DISPLAY=$(ip route|awk '/^default/{print $3}'):0.0
 Then you have to install a linux conda with WSL2 : https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html
 
 Finally run install_dep.bash           
-           
+
+-------------------------------------------------
+# Diagram
+-------------------------------------------------
+![](./diagram.png)
+
 -------------------------------------------------
 # How to use
 -------------------------------------------------
