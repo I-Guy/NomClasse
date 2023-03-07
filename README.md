@@ -46,7 +46,7 @@ This tools can only be used with a GUI
 ## Linux 
 install all package with install_dep.bash
 
-## windows 
+## Windows 
 Because diffexpr is not available on windows, you will need to use WSL2.
 You can install it using powershell and type following command : 
 ```
